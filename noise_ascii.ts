@@ -1,7 +1,7 @@
 import { makeNoise4D } from "https://deno.land/x/open_simplex_noise/mod.ts";
 import { playTone } from "./sound.ts";
 
-// 🌈 Color palettes
+// Color palettes
 const palettes: Record<string, string[]> = {
   fire: ["\x1b[38;5;196m", "\x1b[38;5;202m", "\x1b[38;5;208m", "\x1b[38;5;214m", "\x1b[38;5;220m", "\x1b[38;5;226m"],
   ocean: ["\x1b[38;5;17m", "\x1b[38;5;18m", "\x1b[38;5;19m", "\x1b[38;5;20m", "\x1b[38;5;21m"],
@@ -12,7 +12,7 @@ const palettes: Record<string, string[]> = {
   ice: ["\x1b[38;5;153m", "\x1b[38;5;159m", "\x1b[38;5;195m", "\x1b[38;5;123m", "\x1b[38;5;117m"],
 };
 
-// 🔡 Character shape sets
+// Character shape sets
 const charsets: Record<string, string[]> = {
   classic: [" ", ".", ":", "-", "=", "+", "*", "#", "%", "@"],
   blocks: [" ", "░", "▒", "▓", "█"],
@@ -28,7 +28,7 @@ let currentPalette = "fire";
 const charsetNames = Object.keys(charsets);
 let currentCharset = "classic";
 
-// 🌀 Noise generator
+// Noise generator
 const noise = makeNoise4D(Date.now());
 
 // Display dimensions

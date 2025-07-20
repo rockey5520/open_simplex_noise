@@ -37,14 +37,18 @@ function generateWavData(freq: number, durationMs = 100): Uint8Array {
 
 export async function playTone(freq: number, durationMs = 100) {
   const wavData = generateWavData(freq, durationMs);
+  const ts = Date.now();
+  const filePath = `tones/${ts}_${freq.toFixed(0)}.wav`;
+
+  await Deno.mkdir("tones", { recursive: true });
+  await Deno.writeFile(filePath, wavData);
+
   const tmpFile = await Deno.makeTempFile({ suffix: ".wav" });
   await Deno.writeFile(tmpFile, wavData);
 
-  try {
-    const proc = Deno.run({ cmd: ["afplay", tmpFile], stdout: "null", stderr: "null" });
-    await proc.status();
-    proc.close();
-  } finally {
-    await Deno.remove(tmpFile).catch(() => {});
-  }
+  const proc = Deno.run({ cmd: ["afplay", tmpFile], stdout: "null", stderr: "null" });
+  await proc.status();
+  proc.close();
+
+  await Deno.remove(tmpFile).catch(() => {});
 }
